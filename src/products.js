@@ -8,5 +8,5 @@ export const products = [
   { id: 7, name: "barbell", price:250, off_price:200, image:"/images/barbell.webp"},
   { id: 8, name:"treadmill", price:400, off_price:300, image:"/images/treadmill.webp"},
   { id: 9, name:"sportswear",price:280, off_price:160, image:"/images/sportswear.webp" },
-  { id: 10, name:"tennisracket",price:130, off_price:90, image:"images/tennisracket.webp"}
+  { id: 10, name:"tennisracket",price:130, off_price:10, image:"images/tennisracket.webp"}
 ];
