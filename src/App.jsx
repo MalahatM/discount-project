@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 
 function App() {
 	const [budget, setBudget] = useState('');
+	 const filteredProducts = !budget || budget === '0' 
+    ? products 
+    : products.filter(product => product.off_price <= Number(budget));
   return (
 	
     <div>
@@ -16,14 +19,14 @@ function App() {
     placeholder="Enter your budget"
     value={budget}
   onChange={(e) => {
-            const value = Math.min(Number(e.target.value), 1000);
+            const value = Math.min(Number(e.target.value), 500);
             setBudget(value);
           }}
-          max={1000}
+          max={500}
         /></div>
 
       <div className="products-container">
-        {products.map(product => (
+        {filteredProducts.map(product => (
           <div key={product.id} className="product-card">
             <img
               src={product.image}
