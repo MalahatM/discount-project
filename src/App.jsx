@@ -5,37 +5,41 @@ import React, { useState } from 'react';
 function App() {
   const [budget, setBudget] = useState('');
 
-  const filteredProducts = !budget || budget === '0' 
-    ? products 
-    : products.filter(product => product.off_price <= Number(budget));
+  const handleBudgetChange = (e) => {
+    const value = e.target.value;
+    if (value === '' || Number(value) >= 1) {
+      setBudget(value);
+    }
+  };
 
-  
+  const filteredProducts =
+    budget === ''
+      ? products
+      : products.filter((product) => product.off_price <= Number(budget));
+
   const filteredAndSortedProducts = filteredProducts.sort((a, b) => {
-    const discountPercentA = ((a.price - a.off_price)/ a.price)*100;
-    const discountPercentB = ((b.price - b.off_price)/ b.price)*100;
-    return discountPercentB - discountPercentA; 
+    const discountPercentA = ((a.price - a.off_price) / a.price) * 100;
+    const discountPercentB = ((b.price - b.off_price) / b.price) * 100;
+    return discountPercentB - discountPercentA;
   });
 
   return (
     <div>
       <h1>Products List</h1>
       <div className="budget-input-container">
-        <label htmlFor="budgetInput">please enter your budget($):</label>
+        <label htmlFor="budgetInput">Please enter your budget ($):</label>
         <input
           id="budgetInput"
           type="number"
           placeholder="Enter your budget"
           value={budget}
-          onChange={(e) => {
-            const value = Math.min(Number(e.target.value), 500);
-            setBudget(value);
-          }}
-          max={500}
+          onChange={handleBudgetChange}
+          min={1} // more than 1
         />
       </div>
 
       <div className="products-container">
-        {filteredAndSortedProducts.map(product => (
+        {filteredAndSortedProducts.map((product) => (
           <div key={product.id} className="product-card">
             <img
               src={product.image}
